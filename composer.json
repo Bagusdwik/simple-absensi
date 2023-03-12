@@ -1,0 +1,15 @@
+{
+    "name": "asus/simple-absensi",
+    "autoload": {
+        "psr-4": {
+            "Asus\\SimpleAbsensi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bagusdwik",
+            "email": "dwibaguskurniawan07@gmail.com"
+        }
+    ],
+    "require": {}
+}
