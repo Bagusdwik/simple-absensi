@@ -2,7 +2,12 @@
     "name": "asus/simple-absensi",
     "autoload": {
         "psr-4": {
-            "Asus\\SimpleAbsensi\\": "src/"
+            "Asus\\SimpleAbsensi\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Asus\\SimpleAbsensi\\": "test/"
         }
     },
     "authors": [
