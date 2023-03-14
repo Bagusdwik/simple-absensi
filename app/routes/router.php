@@ -26,12 +26,16 @@ class Router
     $method = $_SERVER['REQUEST_METHOD'];
 
     foreach (self::$routes as $route) {
-      if ($path == $route['path'] && $method == $route['method']) {
 
-        $function = $route['function'];
+      $regexPattern = "#^" . $route['path'] . "$#";
+
+      if (preg_match($regexPattern, $path, $variables) && $method == $route['method']) {
         $controller = new $route['controller'];
-        $controller->$function();
+        $function = $route['function'];
+        // $controller->$function();
 
+        array_shift($variables);
+        call_user_func_array([$controller, $function], $variables);
         return;
       }
     }
