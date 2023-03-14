@@ -2,11 +2,18 @@
 
 namespace Bagus\SimpleAbsensi\controller;
 
+use Bagus\SimpleAbsensi\routes\Views;
+
 class HomeController
 {
   function index()
   {
-    echo "HomeController.index()";
+    $model = [
+      "title" => "MVC",
+      "content" => "HTML"
+    ];
+
+    Views::render('index', $model);
   }
 
   function up()
