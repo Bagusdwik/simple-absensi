@@ -9,20 +9,9 @@ class HomeController
   function index()
   {
     $model = [
-      "title" => "MVC",
-      "content" => "HTML"
+      "title" => "Home"
     ];
 
     Views::render('index', $model);
-  }
-
-  function up()
-  {
-    echo "HomeController.up()";
-  }
-
-  function down()
-  {
-    echo "HomeController.down()";
   }
 }

@@ -5,7 +5,7 @@
         <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="w-full" alt="Phone image" />
       </div>
       <div class="md:w-8/12 lg:ml-6 lg:w-5/12">
-        <h1>REGISTER</h1>
+        <h1 class="mt-0 mb-2 text-5xl font-medium leading-tight text-primary">REGISTER</h1>
         <form method="POST" action="">
           <!-- Name input -->
           <div class="relative mb-6" data-te-input-wrapper-init>
