@@ -15,7 +15,7 @@ class AkunRepository
 
   public function insert(User $user): User
   {
-    $query = $this->koneksi->prepare("INSERT INTO akun(id, email, telepon, username, nama, password, role) VALUES (?,?,?,?,?,?,?)");
+    $query = $this->koneksi->prepare("INSERT INTO akun(id, email, telepon, username, nama, password, role) VALUES (?, ?, ?, ?, ?, ?, ?)");
     $query->execute([
       $user->id, $user->email, $user->telepon, $user->username, $user->nama, $user->password, $user->role
     ]);
