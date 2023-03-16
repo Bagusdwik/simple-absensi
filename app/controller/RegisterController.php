@@ -4,12 +4,12 @@ namespace Bagus\SimpleAbsensi\controller;
 
 use Bagus\SimpleAbsensi\routes\Views;
 
-class LoginController
+class RegisterController
 {
   public function index()
   {
-    Views::render('login', [
-      "title" => "Login"
+    Views::render('register', [
+      "title" => "Register"
     ]);
   }
 }

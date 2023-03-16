@@ -6,11 +6,17 @@ use Bagus\SimpleAbsensi\controller\LoginController;
 use Bagus\SimpleAbsensi\controller\ProfileController;
 use Bagus\SimpleAbsensi\routes\Router;
 use Bagus\SimpleAbsensi\controller\HomeController;
+use Bagus\SimpleAbsensi\controller\ListAbsensiController;
+use Bagus\SimpleAbsensi\controller\RegisterController;
 use Bagus\SimpleAbsensi\Middleware\AuthMiddleware;
 
+// GET
 Router::add("GET", "/profile/([0-9a-zA-Z]*)", ProfileController::class, "index");
-Router::add("GET", "/home", HomeController::class, "index", [AuthMiddleware::class]);
-Router::add("GET", "/login", LoginController::class, "index");
-Router::add("GET", "/register", "loginController", "register");
+Router::add("GET", "/dashboard", HomeController::class, "index", [AuthMiddleware::class]);
+Router::add("GET", "/login", LoginController::class, "index", []);
+Router::add("GET", "/register", RegisterController::class, "index", []);
+Router::add("GET", "/list-absensi", ListAbsensiController::class, "index", []);
+
+// POST
 
 Router::run();

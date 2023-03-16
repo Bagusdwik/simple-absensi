@@ -23,7 +23,7 @@
       },
     };
   </script>
-  <title><?= $model['title'] ?></title>
+  <title><?= $model['title'] ?? 'Absensi' ?></title>
 </head>
 
 <body>
