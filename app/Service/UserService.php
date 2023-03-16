@@ -5,6 +5,8 @@ namespace Bagus\SimpleAbsensi\Service;
 use Bagus\SimpleAbsensi\Config\Database;
 use Bagus\SimpleAbsensi\Domain\User;
 use Bagus\SimpleAbsensi\Exception\ValidationException;
+use Bagus\SimpleAbsensi\Model\UserLoginRequest;
+use Bagus\SimpleAbsensi\Model\UserLoginResponse;
 use Bagus\SimpleAbsensi\Model\UserRegisterRequest;
 use Bagus\SimpleAbsensi\Model\UserRegisterResponse;
 use Bagus\SimpleAbsensi\Repository\AkunRepository;
@@ -59,6 +61,34 @@ class UserService
       trim($userRegisterRequest->telepon) == "" || trim($userRegisterRequest->username) == "" || trim($userRegisterRequest->password) == ""
     ) {
       throw new ValidationException("Field harus terisi semua");
+    }
+  }
+
+  public function login(UserLoginRequest $loginRequest): UserLoginResponse
+  {
+    $this->validateLogin($loginRequest);
+
+    $user = $this->akunRepository->findByEmail($loginRequest->email);
+    if ($user == null) {
+      throw new ValidationException("Email atau Password Salah!!!");
+    }
+
+    if (password_verify($loginRequest->password, $user->password)) {
+      $response = new UserLoginResponse();
+      $response->user = $user;
+      return $response;
+    } else {
+      throw new ValidationException("Email atau Password Salah!!!");
+    }
+  }
+
+  private function validateLogin(UserLoginRequest $loginRequest)
+  {
+    if (
+      $loginRequest->email == null || $loginRequest->password == null ||
+      trim($loginRequest->email) == "" || trim($loginRequest->email) == ""
+    ) {
+      throw new ValidationException("Isi yang benar ajg!!");
     }
   }
 }

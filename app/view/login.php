@@ -5,8 +5,13 @@
         <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="w-full" alt="Phone image" />
       </div>
       <div class="md:w-8/12 lg:ml-6 lg:w-5/12">
+        <?php if (isset($model['error'])) { ?>
+          <div class="mb-4 rounded-lg bg-danger-100 py-5 px-6 text-base text-danger-700" role="alert">
+            <?= $model['error'] ?>
+          </div>
+        <?php } ?>
         <h1 class="mt-0 mb-2 text-5xl font-medium leading-tight text-primary">LOGIN</h1>
-        <form method="POST" action="">
+        <form method="POST" action="/login">
           <!-- Email input -->
           <div class="relative mb-6" data-te-input-wrapper-init>
             <input type="email" name="email" required class="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0" id="exampleFormControlInput3" placeholder="Email address" />

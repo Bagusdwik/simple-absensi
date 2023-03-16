@@ -46,6 +46,30 @@ class AkunRepository
     }
   }
 
+  public function findByEmail(string $email): ?User
+  {
+    $query = $this->koneksi->prepare("SELECT * FROM akun WHERE email = ?");
+    $query->execute([$email]);
+
+    try {
+      if ($row = $query->fetch()) {
+        $user = new User();
+        $user->id = $row['id'];
+        $user->email = $row['email'];
+        $user->telepon = $row['telepon'];
+        $user->username = $row['username'];
+        $user->nama = $row['nama'];
+        $user->password = $row['password'];
+        $user->role = $row['role'];
+        return $user;
+      } else {
+        return null;
+      }
+    } finally {
+      $query->closeCursor();
+    }
+  }
+
   public function deleteAll(): void
   {
     $this->koneksi->exec("DELETE FROM akun");

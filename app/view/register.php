@@ -50,7 +50,7 @@
 
           <p class="mt-2 mb-0 pt-1 text-sm font-semibold">
             Have an account?
-            <a href="#!" class="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700">Login</a>
+            <a href="login" class="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700">Login</a>
           </p>
         </form>
       </div>

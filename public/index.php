@@ -24,4 +24,5 @@ Router::add("GET", "/dashboard-absensi", DashboardUserController::class, "index"
 
 // POST
 Router::add("POST", "/register", RegisterController::class, "up", []);
+Router::add("POST", "/login", LoginController::class, "up", []);
 Router::run();
