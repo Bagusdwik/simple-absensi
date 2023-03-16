@@ -9,7 +9,7 @@ class HomeController
   function index()
   {
     $model = [
-      "title" => "Home"
+      "title" => "Simple Absensi"
     ];
 
     Views::render('index', $model);
