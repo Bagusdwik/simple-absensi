@@ -11,18 +11,24 @@ use Bagus\SimpleAbsensi\controller\HomeController;
 use Bagus\SimpleAbsensi\controller\ListAbsensiController;
 use Bagus\SimpleAbsensi\controller\RegisterController;
 use Bagus\SimpleAbsensi\Middleware\AuthMiddleware;
+use Bagus\SimpleAbsensi\Middleware\BeforeLoginMiddleware;
+use Bagus\SimpleAbsensi\Middleware\MustLoginMiddleware;
 
 Database::getConnection("development");
 
 // GET
 Router::add("GET", "/profile/([0-9a-zA-Z]*)", ProfileController::class, "index");
 Router::add("GET", "/", HomeController::class, "index", []);
-Router::add("GET", "/login", LoginController::class, "index", []);
-Router::add("GET", "/register", RegisterController::class, "index", []);
-Router::add("GET", "/list-absensi", ListAbsensiController::class, "index", []);
-Router::add("GET", "/dashboard-absensi", DashboardUserController::class, "index", []);
+Router::add("GET", "/login", LoginController::class, "index", [BeforeLoginMiddleware::class]);
+Router::add("GET", "/register", RegisterController::class, "index", [BeforeLoginMiddleware::class]);
+Router::add("GET", "/list-absensi", ListAbsensiController::class, "index", [MustLoginMiddleware::class]);
+Router::add("GET", "/dashboard-absensi", DashboardUserController::class, "index", [MustLoginMiddleware::class]);
+Router::add("GET", "/logout", LoginController::class, "logout", [MustLoginMiddleware::class]);
 
 // POST
-Router::add("POST", "/register", RegisterController::class, "up", []);
-Router::add("POST", "/login", LoginController::class, "up", []);
+Router::add("POST", "/register", RegisterController::class, "up", [BeforeLoginMiddleware::class]);
+Router::add("POST", "/login", LoginController::class, "up", [BeforeLoginMiddleware::class]);
+Router::add("POST", "/upload", DashboardUserController::class, "upload", [MustLoginMiddleware::class]);
+Router::add("POST", "/absen", DashboardUserController::class, "absen", [MustLoginMiddleware::class]);
+
 Router::run();

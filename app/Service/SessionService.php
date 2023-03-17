@@ -5,15 +5,15 @@ namespace Bagus\SimpleAbsensi\Service;
 use Bagus\SimpleAbsensi\Domain\Session;
 use Bagus\SimpleAbsensi\Domain\User;
 use Bagus\SimpleAbsensi\Repository\AkunRepository;
-use Bagus\SimpleAbsensi\Repository\SessionReposirtory;
+use Bagus\SimpleAbsensi\Repository\SessionRepository;
 
 class SessionService
 {
   public static string $COOKIE_NAME = "X-COOKIE-ABSEN";
-  private SessionReposirtory $sessionRepository;
+  private SessionRepository $sessionRepository;
   private AkunRepository $akunRepository;
 
-  function __construct(SessionReposirtory $sessionRepository, AkunRepository $akunRepository)
+  function __construct(SessionRepository $sessionRepository, AkunRepository $akunRepository)
   {
     $this->sessionRepository = $sessionRepository;
     $this->akunRepository = $akunRepository;

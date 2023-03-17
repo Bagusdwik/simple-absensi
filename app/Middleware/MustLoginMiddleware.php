@@ -1,6 +1,6 @@
 <?php
 
-namespace Bagus\SimpleAbsensi\controller;
+namespace Bagus\SimpleAbsensi\Middleware;
 
 use Bagus\SimpleAbsensi\Config\Database;
 use Bagus\SimpleAbsensi\Repository\AkunRepository;
@@ -8,34 +8,21 @@ use Bagus\SimpleAbsensi\Repository\SessionRepository;
 use Bagus\SimpleAbsensi\routes\Views;
 use Bagus\SimpleAbsensi\Service\SessionService;
 
-class DashboardUserController
+class MustLoginMiddleware implements Middleware
 {
   private SessionService $sessionService;
+
   public function __construct()
   {
-    $koneksi = Database::getConnection();
-    $sessionRepository = new SessionRepository($koneksi);
-    $akunRepository = new AkunRepository($koneksi);
+    $sessionRepository = new SessionRepository(Database::getConnection());
+    $akunRepository = new AkunRepository(Database::getConnection());
     $this->sessionService = new SessionService($sessionRepository, $akunRepository);
   }
-  public function index()
+  function before(): void
   {
     $user = $this->sessionService->current();
     if ($user == null) {
-      Views::render('login', [
-        "title" => "Login"
-      ]);
-    } else {
-      Views::render('dashboardUser', [
-        "title" => "Dashboard"
-      ]);
+      Views::redirect("/login");
     }
-  }
-
-  public function absen()
-  {
-  }
-  public function upload()
-  {
   }
 }

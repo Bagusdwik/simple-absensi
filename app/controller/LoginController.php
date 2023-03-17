@@ -9,17 +9,22 @@ use Bagus\SimpleAbsensi\Repository\AkunRepository;
 use Bagus\SimpleAbsensi\Service\UserService;
 use Bagus\SimpleAbsensi\Config\Database;
 use Bagus\SimpleAbsensi\Domain\User;
-use Bagus\SimpleAbsensi\Model\UserLoginResponse;
+use Bagus\SimpleAbsensi\Repository\SessionRepository;
+use Bagus\SimpleAbsensi\Service\SessionService;
 
 class LoginController
 {
   private UserService $userService;
+  private SessionService $sessionService;
 
   function __construct()
   {
     $koneksi = Database::getConnection();
     $akunRepository = new AkunRepository($koneksi);
     $this->userService = new UserService($akunRepository);
+
+    $sessionRepository = new SessionRepository($koneksi);
+    $this->sessionService = new SessionService($sessionRepository, $akunRepository);
   }
   public function index()
   {
@@ -37,6 +42,7 @@ class LoginController
 
     try {
       $user = $this->userService->login($request);
+      $this->sessionService->create($user->user->id);
       if ($user->user->role == "user") {
         Views::redirect('/dashboard-absensi');
       } else {
@@ -48,5 +54,11 @@ class LoginController
         "error" => $exception->getMessage()
       ]);
     }
+  }
+
+  public function logout()
+  {
+    $this->sessionService->destroy();
+    Views::redirect("/");
   }
 }

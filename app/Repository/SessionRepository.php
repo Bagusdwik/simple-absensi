@@ -4,7 +4,7 @@ namespace Bagus\SimpleAbsensi\Repository;
 
 use Bagus\SimpleAbsensi\Domain\Session;
 
-class SessionReposirtory
+class SessionRepository
 {
   private \PDO $koneksi;
 
