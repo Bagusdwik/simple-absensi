@@ -39,43 +39,26 @@
   </div>
 </nav>
 <br>
-<div class="flex justify-center">
-  <div class="block max-w-sm rounded-lg bg-white text-center shadow-lg dark:bg-neutral-700">
-    <div class="p-6">
-      <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-        Absensi
-      </h5>
-      <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-        Absensi akan terhitung setiap anda mengklik tombol Hadir
-      </p>
-      <form action="/absen" method="post">
-        <button type="button" data-te-ripple-init data-te-ripple-color="light" class="inline-block rounded bg-success px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)]">
-          Hadir
-        </button>
-      </form>
-    </div>
-  </div>
-</div>
-<br>
+
 <div class="flex justify-center">
   <div class="block max-w-sm text-center rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700">
     <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-      Pakta Integritas
+      Absensi & Pakta Integritas
     </h5>
     <p class="mb-4 leading-tight text-base text-neutral-600 dark:text-neutral-200">
       Pakta Integritas adalah pernyataan atau janji kepada diri sendiri tentang komitmen melaksanakan seluruh tugas, fungsi, tanggung jawab, wewenang dan peran sesuai dengan peraturan perundang-undangan dan kesanggupan untuk tidak melakukan korupsi, kolusi, dan nepotisme.
     </p>
     <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-      Pakta Integritas bisa anda submit kapanpun.
+      Absensi akan terhitung setiap anda mengklik tombol di bawah dan Pakta Integritas bisa anda submit kapanpun.
     </p>
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <form action="/absen" method="post" enctype="multipart/form-data">
       <div class="flex justify-center">
         <div class="mb-3 w-96">
           <input class="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 dark:border-neutral-600 bg-clip-padding py-[0.32rem] px-3 text-base font-normal text-neutral-700 dark:text-neutral-200 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 dark:file:bg-neutral-700 file:px-3 file:py-[0.32rem] file:text-neutral-700 dark:file:text-neutral-100 file:transition file:duration-150 file:ease-in-out file:[margin-inline-end:0.75rem] file:[border-inline-end-width:1px] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-[0_0_0_1px] focus:shadow-primary focus:outline-none" type="file" id="pakta" name="pakta" />
         </div>
       </div>
       <button type="file" class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]" data-te-ripple-init data-te-ripple-color="light">
-        Submit
+        Submit Kehadiran
       </button>
     </form>
   </div>
