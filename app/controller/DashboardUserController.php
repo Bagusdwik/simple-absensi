@@ -31,11 +31,4 @@ class DashboardUserController
       ]);
     }
   }
-
-  public function absen()
-  {
-  }
-  public function upload()
-  {
-  }
 }

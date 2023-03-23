@@ -10,7 +10,6 @@ use Bagus\SimpleAbsensi\routes\Router;
 use Bagus\SimpleAbsensi\controller\HomeController;
 use Bagus\SimpleAbsensi\controller\ListAbsensiController;
 use Bagus\SimpleAbsensi\controller\RegisterController;
-use Bagus\SimpleAbsensi\Middleware\AuthMiddleware;
 use Bagus\SimpleAbsensi\Middleware\BeforeLoginMiddleware;
 use Bagus\SimpleAbsensi\Middleware\MustLoginMiddleware;
 
@@ -28,7 +27,6 @@ Router::add("GET", "/logout", LoginController::class, "logout", [MustLoginMiddle
 // POST
 Router::add("POST", "/register", RegisterController::class, "up", [BeforeLoginMiddleware::class]);
 Router::add("POST", "/login", LoginController::class, "up", [BeforeLoginMiddleware::class]);
-Router::add("POST", "/upload", DashboardUserController::class, "upload", [MustLoginMiddleware::class]);
-Router::add("POST", "/absen", DashboardUserController::class, "absen", [MustLoginMiddleware::class]);
+Router::add("POST", "/absensi", DashboardUserController::class, "absen", [MustLoginMiddleware::class]);
 
 Router::run();
