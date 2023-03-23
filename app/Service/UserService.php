@@ -9,6 +9,8 @@ use Bagus\SimpleAbsensi\Model\UserLoginRequest;
 use Bagus\SimpleAbsensi\Model\UserLoginResponse;
 use Bagus\SimpleAbsensi\Model\UserRegisterRequest;
 use Bagus\SimpleAbsensi\Model\UserRegisterResponse;
+use Bagus\SimpleAbsensi\Model\UserUpdateRequest;
+use Bagus\SimpleAbsensi\Model\UserUpdateResponse;
 use Bagus\SimpleAbsensi\Repository\AkunRepository;
 
 class UserService
@@ -89,6 +91,44 @@ class UserService
       trim($loginRequest->email) == "" || trim($loginRequest->email) == ""
     ) {
       throw new ValidationException("Isi yang benar ajg!!");
+    }
+  }
+
+  public function update(UserUpdateRequest $updateRequest): UserUpdateResponse
+  {
+    $this->validateUpdate($updateRequest);
+    Database::beginTransaction();
+
+    $user = $this->akunRepository->findById($updateRequest->id);
+    if ($user == null) {
+      throw new ValidationException("User Tidak Ditemukan");
+    }
+    $user->email = $updateRequest->email;
+    $user->telepon = $updateRequest->telepon;
+    $user->username = $updateRequest->username;
+    $user->nama = $updateRequest->nama;
+    $this->akunRepository->insert($user);
+
+    Database::commitTransaction();
+
+    $response = new UserUpdateResponse;
+    return $response;
+
+    try {
+    } catch (\Exception $exception) {
+      Database::rollbackTransaction();
+      throw $exception;
+    }
+  }
+
+  private function validateUpdate(UserUpdateRequest $updateRequest)
+  {
+    if (
+      $updateRequest->id == null || $updateRequest->email == null || $updateRequest->telepon == null || $updateRequest->username == null  ||
+      $updateRequest->nama == null || trim($updateRequest->id) == "" || trim($updateRequest->email) == "" ||
+      trim($updateRequest->telepon) == "" || trim($updateRequest->username) == ""
+    ) {
+      throw new ValidationException("Field harus terisi semua");
     }
   }
 }

@@ -22,6 +22,15 @@ class AkunRepository
     return $user;
   }
 
+  public function update(User $user): User
+  {
+    $query = $this->koneksi->prepare("UPDATE akun SET email = ?,  telepon = ?, username = ?, nama = ?, password = ? WHERE id = ?");
+    $query->execute([
+      $user->email, $user->telepon, $user->username, $user->nama, $user->password, $user->id
+    ]);
+    return $user;
+  }
+
   public function findById(string $id): ?User
   {
     $query = $this->koneksi->prepare("SELECT * FROM akun WHERE id = ?");
