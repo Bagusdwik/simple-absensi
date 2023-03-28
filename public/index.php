@@ -30,5 +30,7 @@ Router::add("GET", "/logout", LoginController::class, "logout", [MustLoginMiddle
 Router::add("POST", "/register", RegisterController::class, "up", [BeforeLoginMiddleware::class]);
 Router::add("POST", "/login", LoginController::class, "up", [BeforeLoginMiddleware::class]);
 Router::add("POST", "/absensi", DashboardUserController::class, "absen", [MustLoginMiddleware::class]);
+Router::add("POST", "/update-profile", UpdateProfileController::class, "up", [MustLoginMiddleware::class]);
 
+// RUN
 Router::run();
