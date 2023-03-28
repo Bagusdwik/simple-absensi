@@ -94,27 +94,28 @@ class UserService
     }
   }
 
-  public function update(UserUpdateRequest $updateRequest): UserUpdateResponse
+  public function update(UserUpdateRequest $request): UserUpdateResponse
   {
-    $this->validateUpdate($updateRequest);
-    Database::beginTransaction();
-
-    $user = $this->akunRepository->findById($updateRequest->id);
-    if ($user == null) {
-      throw new ValidationException("User Tidak Ditemukan");
-    }
-    $user->email = $updateRequest->email;
-    $user->telepon = $updateRequest->telepon;
-    $user->username = $updateRequest->username;
-    $user->nama = $updateRequest->nama;
-    $this->akunRepository->insert($user);
-
-    Database::commitTransaction();
-
-    $response = new UserUpdateResponse;
-    return $response;
+    $this->validateUpdate($request);
 
     try {
+      Database::beginTransaction();
+
+      $user = $this->akunRepository->findById($request->id);
+      if ($user == null) {
+        throw new ValidationException("User Tidak Ditemukan");
+      }
+      $user->email = $request->email;
+      $user->telepon = $request->telepon;
+      $user->username = $request->username;
+      $user->nama = $request->nama;
+      $this->akunRepository->insert($user);
+
+      Database::commitTransaction();
+
+      $response = new UserUpdateResponse;
+      $response->user = $user;
+      return $response;
     } catch (\Exception $exception) {
       Database::rollbackTransaction();
       throw $exception;
@@ -124,9 +125,9 @@ class UserService
   private function validateUpdate(UserUpdateRequest $updateRequest)
   {
     if (
-      $updateRequest->id == null || $updateRequest->email == null || $updateRequest->telepon == null || $updateRequest->username == null  ||
-      $updateRequest->nama == null || trim($updateRequest->id) == "" || trim($updateRequest->email) == "" ||
-      trim($updateRequest->telepon) == "" || trim($updateRequest->username) == ""
+      $updateRequest->email == null || $updateRequest->telepon == null || $updateRequest->username == null  ||
+      $updateRequest->nama == null || trim($updateRequest->email) == "" ||
+      trim($updateRequest->telepon) == "" || trim($updateRequest->username) == "" || trim($updateRequest->nama) == ""
     ) {
       throw new ValidationException("Field harus terisi semua");
     }
