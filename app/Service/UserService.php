@@ -109,7 +109,7 @@ class UserService
       $user->telepon = $request->telepon;
       $user->username = $request->username;
       $user->nama = $request->nama;
-      $this->akunRepository->insert($user);
+      $this->akunRepository->update($user);
 
       Database::commitTransaction();
 
