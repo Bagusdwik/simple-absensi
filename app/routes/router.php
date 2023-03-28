@@ -2,6 +2,8 @@
 
 namespace Bagus\SimpleAbsensi\routes;
 
+use Bagus\SimpleAbsensi\routes\Views;
+
 class Router
 {
   private static array $routes = [];
@@ -53,6 +55,9 @@ class Router
       }
     }
     http_response_code(404);
-    echo "NOT FOUND";
+    $model = [
+      "title" => "404"
+    ];
+    Views::render('404', $model);
   }
 }

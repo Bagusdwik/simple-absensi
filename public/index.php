@@ -5,6 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Bagus\SimpleAbsensi\Config\Database;
 use Bagus\SimpleAbsensi\controller\DashboardUserController;
 use Bagus\SimpleAbsensi\controller\LoginController;
+use Bagus\SimpleAbsensi\controller\UpdatePasswordController;
 use Bagus\SimpleAbsensi\controller\UpdateProfileController;
 use Bagus\SimpleAbsensi\routes\Router;
 use Bagus\SimpleAbsensi\controller\HomeController;
@@ -17,6 +18,7 @@ Database::getConnection("development");
 
 // GET
 Router::add("GET", "/update-profile", UpdateProfileController::class, "index", [MustLoginMiddleware::class]);
+Router::add("GET", "/update-password", UpdatePasswordController::class, "index", [MustLoginMiddleware::class]);
 Router::add("GET", "/", HomeController::class, "index", []);
 Router::add("GET", "/login", LoginController::class, "index", [BeforeLoginMiddleware::class]);
 Router::add("GET", "/register", RegisterController::class, "index", [BeforeLoginMiddleware::class]);
