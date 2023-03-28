@@ -7,22 +7,36 @@ use Bagus\SimpleAbsensi\Repository\AkunRepository;
 use Bagus\SimpleAbsensi\Repository\SessionRepository;
 use Bagus\SimpleAbsensi\routes\Views;
 use Bagus\SimpleAbsensi\Service\SessionService;
+use Bagus\SimpleAbsensi\Service\UserService;
 
 class MustLoginMiddleware implements Middleware
 {
   private SessionService $sessionService;
+  private UserService $userService;
 
   public function __construct()
   {
-    $sessionRepository = new SessionRepository(Database::getConnection());
-    $akunRepository = new AkunRepository(Database::getConnection());
+    $koneksi = Database::getConnection();
+    $sessionRepository = new SessionRepository($koneksi);
+
+    $akunRepository = new AkunRepository($koneksi);
+    $this->userService = new UserService($akunRepository);
     $this->sessionService = new SessionService($sessionRepository, $akunRepository);
   }
   function before(): void
   {
-    $user = $this->sessionService->current();
-    if ($user == null) {
+    $userr = $this->sessionService->current();
+    if ($userr == null) {
       Views::redirect("/login");
+    }
+
+    $role = $this->sessionService->getRole();
+    if ($role !== "user") {
+      http_response_code(404);
+      $model = [
+        "title" => "404"
+      ];
+      Views::render('404', $model);
     }
   }
 }

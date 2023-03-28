@@ -49,4 +49,14 @@ class SessionService
 
     return $this->akunRepository->findById($session->akun_id);
   }
+
+  public function getRole(): ?string
+  {
+    $user = $this->current();
+    if ($user == null) {
+      return null;
+    }
+
+    return $user->role;
+  }
 }

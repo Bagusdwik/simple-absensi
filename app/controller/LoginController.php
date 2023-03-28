@@ -43,6 +43,7 @@ class LoginController
     try {
       $user = $this->userService->login($request);
       $this->sessionService->create($user->user->id);
+
       if ($user->user->role == "user") {
         Views::redirect('/dashboard-absensi');
       } else {
