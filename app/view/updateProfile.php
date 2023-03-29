@@ -23,11 +23,26 @@
   <p tabindex="0" class="focus:outline-none text-sm font-light leading-none text-gray-600 mt-0.5">Your details</p>
   <br>
   <?php if (isset($model['error'])) { ?>
-    <div class="mb-4 rounded-lg bg-danger-100 py-5 px-6 text-base text-danger-700" role="alert">
+    <div class="mb-4 rounded-lg bg-danger-100 py-5 px-6 text-base text-danger-700" role="alert" id="notification">
+      <button aria-label="close" class="absolute right-0 mr-4 text-gray-500 dark:text-gray-100 dark:hover:text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out cursor-pointer focus:ring-2 focus:outline-none focus:ring-gray-500 rounded" onclick="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
       <?= $model['error'] ?>
     </div>
   <?php } else { ?>
-    <div class="mb-4 rounded-lg bg-success-100 py-5 px-6 text-base text-success-700" role="alert">
+
+    <div class="mb-4 rounded-lg bg-success-100 py-5 px-6 text-base text-success-700" role="alert" id="notification">
+      <button aria-label="close" class="absolute right-0 mr-4 text-gray-500 dark:text-gray-100 dark:hover:text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out cursor-pointer focus:ring-2 focus:outline-none focus:ring-gray-500 rounded" onclick="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" />
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
       <?php echo "Update Profile Success" ?>
     </div>
   <?php } ?>
@@ -72,3 +87,18 @@
     display: flex;
   }
 </style>
+<script>
+  // Ambil elemen button dengan id "notification"
+  function closeModal() {
+    document.getElementById("notification").style.display = "none";
+    // Simpan status notifikasi pada session storage
+    sessionStorage.setItem('notification', 'closed');
+  }
+
+  // Cek apakah notifikasi sudah ditutup sebelumnya
+  if (sessionStorage.getItem('notification') === 'closed') {
+    document.getElementById("notification").style.display = "none";
+  }
+  // Hapus status notifikasi dari session storage ketika ada pembaruan
+  sessionStorage.removeItem('notification');
+</script>

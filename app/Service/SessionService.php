@@ -27,7 +27,7 @@ class SessionService
 
     $this->sessionRepository->insert($session);
 
-    setcookie(self::$COOKIE_NAME, $session->id, time() + (60 * 60 * 24 * 2), "/");
+    setcookie(self::$COOKIE_NAME, $session->id, time() + (60 * 60 * 5), "/");
 
     return $session;
   }
