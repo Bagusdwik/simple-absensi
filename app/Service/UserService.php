@@ -9,6 +9,8 @@ use Bagus\SimpleAbsensi\Model\UserLoginRequest;
 use Bagus\SimpleAbsensi\Model\UserLoginResponse;
 use Bagus\SimpleAbsensi\Model\UserRegisterRequest;
 use Bagus\SimpleAbsensi\Model\UserRegisterResponse;
+use Bagus\SimpleAbsensi\Model\UserUpdatePasswordRequest;
+use Bagus\SimpleAbsensi\Model\UserUpdatePasswordResponse;
 use Bagus\SimpleAbsensi\Model\UserUpdateRequest;
 use Bagus\SimpleAbsensi\Model\UserUpdateResponse;
 use Bagus\SimpleAbsensi\Repository\AkunRepository;
@@ -128,6 +130,51 @@ class UserService
       $updateRequest->email == null || $updateRequest->telepon == null || $updateRequest->username == null  ||
       $updateRequest->nama == null || trim($updateRequest->email) == "" ||
       trim($updateRequest->telepon) == "" || trim($updateRequest->username) == "" || trim($updateRequest->nama) == ""
+    ) {
+      throw new ValidationException("Field harus terisi semua");
+    }
+  }
+
+  public function updatePassword(UserUpdatePasswordRequest $req): UserUpdatePasswordResponse
+  {
+    $this->validateUpdatePassword($req);
+
+    try {
+
+      Database::beginTransaction();
+      $user = $this->akunRepository->findById($req->id);
+
+      if ($user == null) {
+        throw new ValidationException("User Tidak Ditemukan");
+      }
+
+      if (!password_verify($req->oldPassword, $user->password)) {
+        throw new ValidationException("Password lama salah!!");
+      }
+
+      // if (password_verify($req->newPassword, $req->confirmPassword)) {
+      //   throw new ValidationException("Pastikan Konfirmasi Password Sama Dengan Password Baru");
+      // }
+
+      $user->password = password_hash($req->newPassword, PASSWORD_BCRYPT);
+      $this->akunRepository->update($user);
+
+      Database::commitTransaction();
+
+      $response = new UserUpdatePasswordResponse();
+      $response->user = $user;
+      return $response;
+    } catch (\Exception $exception) {
+      Database::rollbackTransaction();
+      throw $exception;
+    }
+  }
+
+  public function validateUpdatePassword(UserUpdatePasswordRequest $req)
+  {
+    if (
+      $req->newPassword == null || $req->oldPassword == null ||
+      $req->confirmPassword == null || trim($req->newPassword) == "" || trim($req->oldPassword) == "" || trim($req->confirmPassword) == ""
     ) {
       throw new ValidationException("Field harus terisi semua");
     }

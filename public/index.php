@@ -32,6 +32,7 @@ Router::add("POST", "/register", RegisterController::class, "up", [BeforeLoginMi
 Router::add("POST", "/login", LoginController::class, "up", [BeforeLoginMiddleware::class]);
 Router::add("POST", "/absensi", DashboardUserController::class, "absen", [MustLoginMiddleware::class]);
 Router::add("POST", "/update-profile", UpdateProfileController::class, "up", [MustLoginMiddleware::class]);
+Router::add("POST", "/update-password", UpdatePasswordController::class, "up", [MustLoginMiddleware::class]);
 
 // RUN
 Router::run();
