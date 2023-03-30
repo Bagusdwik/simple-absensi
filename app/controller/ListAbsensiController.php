@@ -38,6 +38,7 @@ class ListAbsensiController
       $absensiList = $this->absensiRepository->getAll();
       Views::render('listAbsensi', [
         "title" => "List Absensi",
+        "user" => $user->nama,
         "absensiList" => $absensiList
       ]);
     }
