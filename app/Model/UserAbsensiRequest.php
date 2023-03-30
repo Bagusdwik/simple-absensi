@@ -2,9 +2,9 @@
 
 namespace Bagus\SimpleAbsensi\Model;
 
-use Bagus\SimpleAbsensi\Domain\User;
-
-class UserAbsenResponse
+class UserAbsensiRequest
 {
-  public User $user;
+  public ?string $id = null;
+  public ?string $waktu = null;
+  public ?string $dokumen = null;
 }

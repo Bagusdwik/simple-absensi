@@ -15,10 +15,17 @@ class AbsensiRepository
 
   public function insert(Absensi $absensi): Absensi
   {
-    $query = $this->koneksi->prepare("INSERT INTO absen(id, waktu, dokumen) VALUES (?, ?, ?)");
+    $query = $this->koneksi->prepare("INSERT INTO absen(id, waktu) VALUES (?, ?)");
     $query->execute([
-      $absensi->id, $absensi->waktu, $absensi->dokumen
+      $absensi->id, $absensi->waktu
     ]);
     return $absensi;
+  }
+
+  public function getAll()
+  {
+    $query = $this->koneksi->query("SELECT * FROM absen");
+    $result = $query->fetchAll(\PDO::FETCH_CLASS, Absensi::class);
+    return $result;
   }
 }
